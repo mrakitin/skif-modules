@@ -1,0 +1,38 @@
+#%Module1.0
+
+module-whatis   "Loads WIEN2k 8.3"
+
+#module add compilers/composer_xe/2013_sp1
+#module add parallel/mpi.intel/4.1.0.024
+
+set WIENROOT         /home/max/wien2k
+set STRUCTEDIT_PATH  $WIENROOT/SRC_structeditor/bin
+
+set-alias lsi    "ls -aslp *.in*"
+set-alias lso    "ls -aslp *.ou*"
+set-alias lsd    "ls -aslp *.def"
+set-alias lsc    "ls -aslp *.cl*"
+set-alias lss    "ls -aslp *.sc*"
+set-alias lse    "ls -aslp *.error"
+set-alias pslapw "ps -ef | grep lapw"
+
+setenv LC_NUMERIC      en_US
+setenv OMP_NUM_THREADS 1
+setenv EDITOR          vim
+#if {![info exists env(EDITOR)]}	{ setenv EDITOR	vim }
+setenv WIENROOT        $WIENROOT
+setenv STRUCTEDIT_PATH $STRUCTEDIT_PATH
+
+#prepend-path    LD_LIBRARY_PATH /share/intel/mkl/lib/intel64
+prepend-path    PATH            $WIENROOT:$STRUCTEDIT_PATH:.
+
+set PATH        $::env(PATH)
+set OCTAVE_PATH [format "%s::" $STRUCTEDIT_PATH]
+
+setenv OCTAVE_EXEC_PATH [format "%s::" $PATH]
+setenv OCTAVE_PATH      $OCTAVE_PATH
+
+puts "ulimit -s unlimited"
+
+set-alias octave "octave -p $OCTAVE_PATH"
+

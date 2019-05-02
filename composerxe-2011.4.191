@@ -1,0 +1,31 @@
+#%Module1.0
+
+module-whatis   "Loads Intel Fortran compiler 2011.4.191"
+
+set             version                 2011.4.191
+
+set             intel_path              /home/max
+set             composer_path           ${intel_path}/bin/composerxe-${version}
+
+setenv          INTEL_LICENSE_FILE      ${intel_path}/intel/licenses
+
+setenv          MKLROOT                 ${composer_path}/mkl
+setenv          TBBROOT                 ${composer_path}/tbb
+setenv          IPPROOT                 ${composer_path}/ipp
+
+prepend-path    PATH                    ${composer_path}/bin/intel64
+append-path     PATH                    ${composer_path}/mpirt/bin/intel64
+prepend-path    INCLUDE                 ${composer_path}/ipp/include:${composer_path}/mkl/include
+prepend-path    MANPATH                 ${composer_path}/man/en_US
+prepend-path    LIBRARY_PATH            ${composer_path}/ipp/../compiler/lib/intel64:${composer_path}/ipp/lib/intel64:${composer_path}/compiler/lib/intel64:${composer_path}/mkl/lib/intel64:${composer_path}/tbb/lib/intel64/cc4.1.0_libc2.4_kernel2.6.16.21
+prepend-path    LD_LIBRARY_PATH         ${composer_path}/ipp/../compiler/lib/intel64:${composer_path}/ipp/lib/intel64:${composer_path}/compiler/lib/intel64:${composer_path}/mkl/lib/intel64:${composer_path}/tbb/lib/intel64/cc4.1.0_libc2.4_kernel2.6.16.21:${composer_path}/debugger/lib/intel64:${composer_path}/mpirt/lib/intel64
+
+prepend-path    FPATH                   ${composer_path}/mkl/include
+prepend-path    CPATH                   ${composer_path}/mkl/include:${composer_path}/tbb/include
+prepend-path    NLSPATH                 ${composer_path}/compiler/lib/intel64/locale/%l_%t/%N:${composer_path}/ipp/lib/intel64/locale/%l_%t/%N:${composer_path}/mkl/lib/intel64/locale/%l_%t/%N:${composer_path}/debugger/intel64/locale/%l_%t/%N
+
+setenv          CC                      icc
+setenv          CXX                     icpc
+setenv          FC                      ifort
+setenv          IDB                     idb
+
